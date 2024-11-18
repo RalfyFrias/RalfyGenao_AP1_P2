@@ -1,0 +1,88 @@
+﻿@page "/Registro/Index"
+@inject RegistroService registroServices
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
+
+@* <div class="container">
+    <div class="card shadow-lg mt-3">
+        <div class="card-header text-center">
+            <h5>Registros</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="row md-3 align-content-lg-center">
+                <div class="col-md-3">
+                    <label for="filtro" class="form-label"><strong>Filtrar Por:</strong></label>
+                    <select @bind="" class="form-select"> 
+                        <option value="id">ResgitroId</option>
+                        <option value="Nombre">Nombre</option>
+                        <option value="Descripcion">Descripcion</option>
+                    </select>
+                </div>
+
+                <div class="col-md-5">
+                    <label for="valorfiltro" class="form-label"><strong>Busqueda:</strong></label>
+                    <div class="input-group">
+                        <input @bind="" class="form-control"/>
+                        <button type="button" class="btn btn-outline-primary">
+                            <span class="bi bi-search mt-3"></span>
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-15">
+                        <div class="col-md-15 text-end">
+                            <a href="/create" class="btn btn-outline-success" type="button">
+                                <span class="bi bi-plus-square-fill mt-3"></span>
+                                Crear
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-light table-bordered ">
+                    <thead class="table table-striped text-center">
+                        <tr>
+                            <th>RegistroId</th>
+                            <th>Nombre</th>
+                            <th>Descrpcion</th>
+                            <th>Ver</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var r in ){
+                            <tr>
+                                <td>@r.RegistroId</td>
+                                <td>@r.Nombre</td>
+                                <td>@r.Descripcion</td>
+
+                                <td class="text-center">
+                                    <a href="Details/@r.RegistroId" class="btn btn-outline-primary bi bi-eye mt-3"></a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="Edit/@r.RegistroId" class="btn btn-outline-success bi bi-pencil-square mt-3"></a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="Delete/@r.RegistroId" class="btn btn-outline-danger bi bi-trash mt-3"></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="card-footer">
+                <p>Total:@ListaRegistros.Count</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+@code {
+   
+} *@
