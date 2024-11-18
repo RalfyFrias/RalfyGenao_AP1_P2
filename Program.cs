@@ -1,17 +1,20 @@
+using Microsoft.EntityFrameworkCore;
 using RalfyGenao_AP1_P2.Components;
+using RalfyGenao_AP1_P2.DAL;
+using RalfyGenao_AP1_P2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
+builder.Services.AddRazorComponents();
 
     // La inyecci?n del contexto con SqlServer
 var SqlConStr = builder.Configuration.GetConnectionString("SqlConStr");
 builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlServer(SqlConStr));
 
 //La inyeccion del servicios
-builder.Services.AddScoped<RegistroServices>()
-    .AddInteractiveServerComponents();
+builder.Services.AddScoped<RegistroService>();
+builder.Services.AddBlazorBootstrap();
 
 var app = builder.Build();
 
