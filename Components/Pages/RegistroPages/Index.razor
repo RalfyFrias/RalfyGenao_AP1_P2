@@ -1,88 +1,68 @@
-﻿@page "/Registro/Index"
-@inject RegistroService registroServices
-@inject NavigationManager navigationManager
+﻿@page "/Combos/Index"
+@inject ComboService comboService
 @rendermode InteractiveServer
+@inject NavigationManager navigationManager
 
-@* <div class="container">
-    <div class="card shadow-lg mt-3">
-        <div class="card-header text-center">
-            <h5>Registros</h5>
-        </div>
 
-        <div class="card-body">
-            <div class="row md-3 align-content-lg-center">
-                <div class="col-md-3">
-                    <label for="filtro" class="form-label"><strong>Filtrar Por:</strong></label>
-                    <select @bind="" class="form-select"> 
-                        <option value="id">ResgitroId</option>
-                        <option value="Nombre">Nombre</option>
-                        <option value="Descripcion">Descripcion</option>
-                    </select>
-                </div>
+<EditForm Model="combo" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-                <div class="col-md-5">
-                    <label for="valorfiltro" class="form-label"><strong>Busqueda:</strong></label>
+    <PageTitle>Registrar combo</PageTitle>
+
+    <div class="container mt-4">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h3 class="mb-0 fw-bold">Registrar Combo</h3>
+            </div>
+
+            <div class="card-body">
+                @* Combo Id *@
+                <div class="mb-3">
+                    <label for="ComboId" class="col-form-label"><strong>Combo Id:</strong></label>
                     <div class="input-group">
-                        <input @bind="" class="form-control"/>
-                        <button type="button" class="btn btn-outline-primary">
-                            <span class="bi bi-search mt-3"></span>
-                            Buscar
+                        <InputNumber @bind-Value="combo.ComboId" class="form-control" />
+                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar">
+                            <i class="bi bi-search"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-15">
-                        <div class="col-md-15 text-end">
-                            <a href="/create" class="btn btn-outline-success" type="button">
-                                <span class="bi bi-plus-square-fill mt-3"></span>
-                                Crear
-                            </a>
-                        </div>
-                    </div>
+                @* Arituclo Id*@
+                <div class="mb-3">
+                    <label for="Arituclo" class="col-form-label"><strong>Arituclo:</strong></label>
+                    <InputSelect @bind-Value="cobro.ArticuloId" class="form-select">
+                        <option value="0">Seleccione un articulo</option>
+                        @foreach (var articulo in listaarticulo)
+                        {
+                            <option value="@combo.ComboId">@combo.Articulo</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => cobro.ArticuloId)" />
                 </div>
 
-                <table class="table table-light table-bordered ">
-                    <thead class="table table-striped text-center">
-                        <tr>
-                            <th>RegistroId</th>
-                            <th>Nombre</th>
-                            <th>Descrpcion</th>
-                            <th>Ver</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var r in ){
-                            <tr>
-                                <td>@r.RegistroId</td>
-                                <td>@r.Nombre</td>
-                                <td>@r.Descripcion</td>
-
-                                <td class="text-center">
-                                    <a href="Details/@r.RegistroId" class="btn btn-outline-primary bi bi-eye mt-3"></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="Edit/@r.RegistroId" class="btn btn-outline-success bi bi-pencil-square mt-3"></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="Delete/@r.RegistroId" class="btn btn-outline-danger bi bi-trash mt-3"></a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
+                @* Precio *@
+                <div class="mb-3">
+                    <label for="Precio" class="col-form-label"><strong>Precio:</strong></label>
+                    <InputNumber @bind-Value="cobro.Precio" class="form-control" />
+                    <ValidationMessage For="@(() => cobro.Precio)" />
+                </div>
             </div>
 
-            <div class="card-footer">
-                <p>Total:@ListaRegistros.Count</p>
+            @* Vendido *@
+            <div class="mb-3">
+                <label for="Vendido" class="col-form-label"><strong>Vendido:</strong></label>
+                <InputNumber @bind-Value="cobro.Vendido" class="form-control" />
+                <ValidationMessage For="@(() => cobro.Vendido)" />
             </div>
         </div>
 
-    </div>
-</div>
-@code {
-   
-} *@
+            @* Detalles del Combo *@
+            <div class="card mt-4 border-success">
+                <div class="card-header">
+                    <h3 class="mb-0 fw-bold">Combo Detalle</h3>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                  
